@@ -10,8 +10,14 @@ public class SnakeAndLadder {
 	public static final int WINNING_POSITION = 100;
 
 	public static void main(String[] args) {
+
+		System.out.println("Welcome To Snake And Ladder Game");
+
 		int position = 0;
 		int reach = 0;
+		int roll = 0;
+		int start = 0;
+
 		while (reach < WINNING_POSITION) {
 			reach++;
 
@@ -23,28 +29,35 @@ public class SnakeAndLadder {
 
 			switch (option) {
 			case NO_PLAY:
-				position += 0;
+				roll = 0;
 				break;
 			case LADDER:
-				if ((position + diceValue) < 100) {
-					position += diceValue;
-					reach = position;
-				} else
-					position += diceValue;
-				reach = position;
-
+				roll = +diceValue;
 				break;
 			case SNAKE:
-				if (position > 0) {
-					position -= diceValue;
-					reach = position;
-				} else
-					position = 0;
-				reach = position;
-
+				roll = -diceValue;
 				break;
 			}
-			System.out.println("Reached:" + reach);
+
+			position = (position + roll);
+			if ((position < start) && (option == 0)) {
+				System.out.println("Current Position: " + start);
+				reach = start;
+				System.out.println("Reached: " + reach);
+			} else if ((position > WINNING_POSITION) && (option == 1)) {
+				System.out.println("Current Position: " + position);
+				reach = WINNING_POSITION;
+				System.out.println("Reached: " + reach);
+				break;
+			} else if (position < 0) {
+				System.out.println("Current Position: " + start);
+				reach = start;
+				System.out.println("Reached: " + reach);
+			} else {
+				System.out.println("Current Position: " + position);
+				reach = position;
+				System.out.println("Reached: " + reach);
+			}
 		}
 		System.out.println("Win:" + reach);
 	}
